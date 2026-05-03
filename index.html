@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jiravat Chitowath — AI Engineer & Data Scientist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    html { background: #050505; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ef4444; }
+
+    /* Reveal animation */
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .reveal-d1 { animation-delay: 0.1s; }
+    .reveal-d2 { animation-delay: 0.2s; }
+    .reveal-d3 { animation-delay: 0.3s; }
+    .reveal-d4 { animation-delay: 0.4s; }
+    .reveal-d5 { animation-delay: 0.5s; }
+    .reveal-d6 { animation-delay: 0.6s; }
+
+    /* Scroll-triggered reveal */
+    .sr { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .sr.visible { opacity: 1; transform: translateY(0); }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(to bottom right, #ef4444, #991b1b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Card hover glow */
+    .card-glow {
+      position: relative;
+      overflow: hidden;
+    }
+    .card-glow::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    .card-glow:hover::before { opacity: 1; }
+
+    /* Skill bar animation */
+    .skill-fill {
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .skill-fill.active { width: var(--fill); }
+
+    /* Pulse dot */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+    .pulse-dot { animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+    /* Float animation for hero decoration */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-10px) rotate(1deg); }
+      66% { transform: translateY(5px) rotate(-1deg); }
+    }
+    .float-anim { animation: float 6s ease-in-out infinite; }
+
+    /* Marquee */
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee 30s linear infinite; }
+
+    /* Nav active */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ef4444;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 100%; }
+
+    /* Project card image overlay */
+    .project-img-overlay {
+      background: linear-gradient(to top, #000000, rgba(0,0,0,0.4), transparent);
+    }
+
+    /* Tag styles */
+    .tag {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: #f87171;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      transition: all 0.3s;
+    }
+    .tag:hover {
+      background: rgba(239,68,68,0.2);
+      border-color: rgba(239,68,68,0.4);
+    }
+
+    /* Timeline line */
+    .timeline-line {
+      position: absolute;
+      left: 7px;
+      top: 24px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(239,68,68,0.4), transparent);
+    }
+  </style>
+</head>
+<body class="bg-[#050505] text-white antialiased">
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
+          <span class="text-red-500 font-bold text-sm">J</span>
+        </div>
+        <span class="font-semibold text-sm tracking-tight hidden sm:block">Jiravat</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="nav-link text-sm font-medium text-neutral-400 hover:text-white transition-colors">About</a>
+        <a href="#skills" class="nav-link text-sm font-medium text-neutral-400 hover:text-white transition-colors">Skills</a>
+        <a href="#projects" class="nav-link text-sm font-medium text-neutral-400 hover:text-white transition-colors">Projects</a>
+        <a href="#experience" class="nav-link text-sm font-medium text-neutral-400 hover:text-white transition-colors">Experience</a>
+        <a href="#achievements" class="nav-link text-sm font-medium text-neutral-400 hover:text-white transition-colors">Achievements</a>
+        <a href="#contact" class="bg-white text-black text-xs font-semibold tracking-widest uppercase px-5 py-2.5 rounded-full hover:bg-neutral-200 transition-colors">Contact</a>
+      </div>
+      <button id="mobile-toggle" class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+        <span class="iconify text-xl" data-icon="lucide:menu"></span>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-white/5 bg-[#0a0a0a]/95" style="backdrop-filter: blur(12px);">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#about" class="mobile-link text-sm font-medium text-neutral-400 hover:text-white py-2 transition-colors">About</a>
+        <a href="#skills" class="mobile-link text-sm font-medium text-neutral-400 hover:text-white py-2 transition-colors">Skills</a>
+        <a href="#projects" class="mobile-link text-sm font-medium text-neutral-400 hover:text-white py-2 transition-colors">Projects</a>
+        <a href="#experience" class="mobile-link text-sm font-medium text-neutral-400 hover:text-white py-2 transition-colors">Experience</a>
+        <a href="#achievements" class="mobile-link text-sm font-medium text-neutral-400 hover:text-white py-2 transition-colors">Achievements</a>
+        <a href="#contact" class="mobile-link bg-white text-black text-xs font-semibold tracking-widest uppercase px-5 py-2.5 rounded-full text-center hover:bg-neutral-200 transition-colors mt-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img src="https://picsum.photos/seed/ai-neural-dark/1920/1080.jpg" alt="Background" class="w-full h-full object-cover opacity-10" style="filter: grayscale(1); mix-blend-mode: overlay;">
+      <div class="absolute inset-0" style="background: linear-gradient(to top, #050505, rgba(5,5,5,0.95), transparent);"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(to bottom, #050505, transparent 30%, transparent 70%, #050505);"></div>
+    </div>
+    <!-- Decorative elements -->
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-red-500/5 blur-3xl float-anim"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full bg-red-500/3 blur-2xl float-anim" style="animation-delay: -2s;"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <!-- Status badge -->
+      <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-8">
+        <span class="w-2 h-2 rounded-full bg-green-500 pulse-dot"></span>
+        <span class="text-xs font-medium tracking-widest uppercase text-neutral-400">Open to Opportunities</span>
+      </div>
+
+      <!-- Name -->
+      <h1 class="reveal reveal-d1 text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1.1] mb-6">
+        Jiravat<br><span class="gradient-text">Chitowath</span>
+      </h1>
+
+      <!-- Title -->
+      <p class="reveal reveal-d2 text-lg md:text-xl font-light text-neutral-400 max-w-2xl mx-auto mb-4 leading-relaxed">
+        AI Engineer · Data Scientist · ML Researcher
+      </p>
+      <p class="reveal reveal-d3 text-sm text-neutral-500 max-w-xl mx-auto mb-10 leading-relaxed">
+        4th-year Engineering student at Chulalongkorn University — building end-to-end AI solutions from Computer Vision to NLP that solve real-world problems.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="reveal reveal-d4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#projects" class="group bg-white text-black text-xs font-semibold tracking-widest uppercase px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors flex items-center gap-2">
+          View Projects
+          <span class="iconify group-hover:translate-x-1 transition-transform" data-icon="lucide:arrow-right"></span>
+        </a>
+        <a href="#contact" class="text-xs font-semibold tracking-widest uppercase px-8 py-4 rounded-full border border-white/10 hover:border-white/30 text-neutral-300 hover:text-white transition-all">
+          Get In Touch
+        </a>
+      </div>
+
+      <!-- Quick stats -->
+      <div class="reveal reveal-d5 flex items-center justify-center gap-8 md:gap-12 mt-16 pt-8 border-t border-white/5">
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-semibold tracking-tight">88.8%</div>
+          <div class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">CV Accuracy</div>
+        </div>
+        <div class="w-px h-10 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-semibold tracking-tight">95%</div>
+          <div class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">Sentiment Acc.</div>
+        </div>
+        <div class="w-px h-10 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-2xl md:text-3xl font-semibold tracking-tight">120K+</div>
+          <div class="text-xs text-neutral-500 mt-1 tracking-wide uppercase">Records Processed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 reveal reveal-d6">
+      <span class="text-[10px] tracking-widest uppercase text-neutral-600">Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-neutral-600 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ==================== MARQUEE ==================== -->
+  <div class="border-y border-white/5 py-4 overflow-hidden bg-[#0a0a0a]/50">
+    <div class="marquee-track flex items-center gap-8 whitespace-nowrap" style="width: max-content;">
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">PyTorch</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Computer Vision</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">NLP</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">RAG Pipeline</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Transformers</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">YOLO</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Azure</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Deep Learning</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Data Science</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">GANs</span>
+      <span class="text-red-500/40">◆</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">PyTorch</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Computer Vision</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">NLP</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">RAG Pipeline</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Transformers</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">YOLO</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Azure</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Deep Learning</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">Data Science</span>
+      <span class="text-red-500/40">◆</span>
+      <span class="text-xs tracking-[0.3em] uppercase text-neutral-600">GANs</span>
+      <span class="text-red-500/40">◆</span>
+    </div>
+  </div>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section id="about" class="py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Image side -->
+        <div class="sr relative">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/5] max-w-md mx-auto lg:mx-0">
+            <img src="https://picsum.photos/seed/engineer-portrait-pro/600/750.jpg" alt="Jiravat Chitowath" class="w-full h-full object-cover" style="filter: grayscale(0.3);">
+            <div class="absolute inset-0 project-img-overlay"></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+                  <span class="iconify text-red-400" data-icon="lucide:graduation-cap"></span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Chulalongkorn University</div>
+                  <div class="text-xs text-neutral-400">B.Eng. Electrical Engineering — 2026</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Decorative frame -->
+          <div class="absolute -top-3 -right-3 w-full h-full border border-red-500/10 rounded-2xl -z-10"></div>
+        </div>
+
+        <!-- Text side -->
+        <div>
+          <div class="sr">
+            <span class="text-xs font-medium tracking-widest uppercase text-red-500 mb-4 block">About Me</span>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1] mb-6">
+              Bridging AI research<br>with <span class="gradient-text">real-world impact</span>
+            </h2>
+          </div>
+          <div class="sr space-y-4 text-neutral-400 font-light leading-relaxed">
+            <p>
+              I'm a 4th-year Engineering student at Chulalongkorn University with a strong passion for integrating Artificial Intelligence with business strategy to tackle real-world challenges.
+            </p>
+            <p>
+              Experienced in developing end-to-end AI solutions — from Computer Vision systems grading cocoa beans in real-time, to NLP pipelines processing 120,000+ customer feedback records. I've applied these skills through data science internships, startup competitions, and national AI hackathons.
+            </p>
+            <p>
+              My goal is to leverage end-to-end AI engineering expertise to deliver impactful products that solve real-world pain points and drive business growth.
+            </p>
+          </div>
+          <!-- Highlights -->
+          <div class="sr grid grid-cols-2 gap-4 mt-8">
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+              <span class="iconify text-red-500 text-xl mb-2" data-icon="lucide:brain-circuit"></span>
+              <div class="text-sm font-medium">AI Research</div>
+              <div class="text-xs text-neutral-500 mt-1">CV, NLP, Generative AI</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+              <span class="iconify text-red-500 text-xl mb-2" data-icon="lucide:database"></span>
+              <div class="text-sm font-medium">Data Science</div>
+              <div class="text-xs text-neutral-500 mt-1">EDA, Analytics, Dashboards</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+              <span class="iconify text-red-500 text-xl mb-2" data-icon="lucide:rocket"></span>
+              <div class="text-sm font-medium">Deployment</div>
+              <div class="text-xs text-neutral-500 mt-1">Azure, APIs, ONNX</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+              <span class="iconify text-red-500 text-xl mb-2" data-icon="lucide:lightbulb"></span>
+              <div class="text-sm font-medium">Business Mindset</div>
+              <div class="text-xs text-neutral-500 mt-1">Startup, Strategy, Growth</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section id="skills" class="py-24 md:py-32 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 sr">
+        <span class="text-xs font-medium tracking-widest uppercase text-red-500 mb-4 block">Technical Arsenal</span>
+        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Skills & Technologies</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Skill Card 1: Programming -->
+        <div class="sr card-glow p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:code-2"></span>
+          </div>
+          <h3 class="text-lg font-medium tracking-tight mb-3">Programming & Web</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Python</span>
+            <span class="tag">C++</span>
+            <span class="tag">SQL</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 2: AI Frameworks -->
+        <div class="sr card-glow p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:brain-circuit"></span>
+          </div>
+          <h3 class="text-lg font-medium tracking-tight mb-3">AI Frameworks</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">PyTorch</span>
+            <span class="tag">Scikit-learn</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">Matplotlib</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 3: Computer Vision -->
+        <div class="sr card-glow p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:eye"></span>
+          </div>
+          <h3 class="text-lg font-medium tracking-tight mb-3">Computer Vision</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">YOLO</span>
+            <span class="tag">CNNs</span>
+            <span class="tag">GANs</span>
+            <span class="tag">Image Segmentation</span>
+            <span class="tag">Object Detection</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 4: NLP -->
+        <div class="sr card-glow p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:message-square-text"></span>
+          </div>
+          <h3 class="text-lg font-medium tracking-tight mb-3">NLP & Generative AI</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Transformers</span>
+            <span class="tag">RAG Pipeline</span>
+            <span class="tag">Vector Search</span>
+            <span class="tag">Embeddings</span>
+            <span class="tag">Prompt Design</span>
+            <span class="tag">RNNs</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 5: Cloud -->
+        <div class="sr card-glow p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:cloud"></span>
+          </div>
+          <h3 class="text-lg font-medium tracking-tight mb-3">Cloud & Deployment</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Azure</span>
+            <span class="tag">API Development</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">n8n</span>
+            <span class="tag">ONNX</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 6: Math & Engineering -->
+        <div class="sr card-glow p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-5 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:sigma"></span>
+          </div>
+          <h3 class="text-lg font-medium tracking-tight mb-3">Math & Engineering</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Linear Algebra</span>
+            <span class="tag">Probability</span>
+            <span class="tag">Optimization</span>
+            <span class="tag">Signal Processing</span>
+            <span class="tag">IoT</span>
+            <span class="tag">Embedded Systems</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visualization tools -->
+      <div class="sr mt-8 p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <span class="iconify text-red-500 text-2xl" data-icon="lucide:bar-chart-3"></span>
+        <div>
+          <h3 class="text-sm font-medium">Visualization & Analytics</h3>
+          <p class="text-xs text-neutral-500 mt-1">Power BI · Excel · Data Storytelling</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section id="projects" class="py-24 md:py-32 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 sr">
+        <span class="text-xs font-medium tracking-widest uppercase text-red-500 mb-4 block">Featured Work</span>
+        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Projects</h2>
+      </div>
+
+      <!-- Project 1: Cocoa Bean (Large Feature) -->
+      <div class="sr mb-8 rounded-2xl overflow-hidden border border-white/5 hover:border-red-500/20 transition-all duration-300 group card-glow">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="relative aspect-video lg:aspect-auto overflow-hidden">
+            <img src="https://picsum.photos/seed/cocoa-beans-quality/800/600.jpg" alt="Cocoa Bean Quality Assessment" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 project-img-overlay"></div>
+            <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 border border-white/10" style="backdrop-filter: blur(4px);">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot"></span>
+              <span class="text-[10px] tracking-widest uppercase font-medium">Active Project</span>
+            </div>
+          </div>
+          <div class="p-8 lg:p-10 flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="tag">Computer Vision</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">YOLO</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-medium tracking-tight mb-4">Real-Time Cocoa Bean Quality Assessment using AI</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+              Implemented a two-stage computer vision architecture cascading detection with fine-grained classification — achieving 88.81% accuracy for color and 73.05% for defect detection. Built a full web application with camera integration, controlled lighting, and ML model visualization.
+            </p>
+            <!-- Key metrics -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+              <div class="text-center p-3 rounded-lg bg-white/[0.03]">
+                <div class="text-lg font-semibold text-red-400">2.5s</div>
+                <div class="text-[10px] text-neutral-500 uppercase tracking-wide mt-1">GPU / Batch</div>
+              </div>
+              <div class="text-center p-3 rounded-lg bg-white/[0.03]">
+                <div class="text-lg font-semibold text-red-400">45s</div>
+                <div class="text-[10px] text-neutral-500 uppercase tracking-wide mt-1">CPU / Batch</div>
+              </div>
+              <div class="text-center p-3 rounded-lg bg-white/[0.03]">
+                <div class="text-lg font-semibold text-red-400">30×</div>
+                <div class="text-[10px] text-neutral-500 uppercase tracking-wide mt-1">Time Reduction</div>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-neutral-400 font-light">
+              <li class="flex items-start gap-2">
+                <span class="iconify text-red-500 mt-0.5 shrink-0" data-icon="lucide:check-circle-2"></span>
+                Two-stage cascade: detection → fine-grained classification
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="iconify text-red-500 mt-0.5 shrink-0" data-icon="lucide:check-circle-2"></span>
+                ONNX optimization for resource-constrained CPU deployment
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="iconify text-red-500 mt-0.5 shrink-0" data-icon="lucide:check-circle-2"></span>
+                Compliant with Ministry of Agriculture standards
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Project 2: Election OCR -->
+        <div class="sr card-glow rounded-2xl overflow-hidden border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="relative aspect-video overflow-hidden">
+            <img src="https://picsum.photos/seed/election-ocr-thai/600/340.jpg" alt="Election OCR" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 project-img-overlay"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="tag">OCR</span>
+              <span class="tag">OpenCV</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2">Election Result OCR System</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-4">
+              Robust OCR pipeline for Thai script ambiguity and handwritten digits. Applied adaptive thresholding and morphological transformations.
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+              <div class="text-sm font-semibold text-red-400">0.42</div>
+              <div class="text-xs text-neutral-500">Avg. Levenshtein Distance on degraded docs</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: FahMai RAG -->
+        <div class="sr card-glow rounded-2xl overflow-hidden border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="relative aspect-video overflow-hidden">
+            <img src="https://picsum.photos/seed/rag-knowledge-base/600/340.jpg" alt="FahMai RAG" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 project-img-overlay"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="tag">RAG</span>
+              <span class="tag">BM25</span>
+              <span class="tag">BGE-M3</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2">FahMai RAG Challenge</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-4">
+              High-accuracy customer support RAG system with hybrid retrieval (BM25 + BGE-M3) and BGE-Reranker-V2-M3 to minimize hallucinations.
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+              <div class="text-sm font-semibold text-red-400">75%</div>
+              <div class="text-xs text-neutral-500">Domain-specific evaluation accuracy</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: PromptFix -->
+        <div class="sr card-glow rounded-2xl overflow-hidden border border-white/5 hover:border-red-500/20 transition-all duration-300 group">
+          <div class="relative aspect-video overflow-hidden">
+            <img src="https://picsum.photos/seed/ai-repair-assistant/600/340.jpg" alt="PromptFix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 project-img-overlay"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="tag">RAG</span>
+              <span class="tag">Startup</span>
+              <span class="tag">Business</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2">PromptFix — AI Repair Assistant</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed mb-4">
+              AI-powered home appliance repair assistant using RAG with product manuals. Top 15 Finalist in Young Startup Entrepreneur Program 2026.
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
+              <div class="text-sm font-semibold text-red-400">Top 15</div>
+              <div class="text-xs text-neutral-500">National startup competition finalist</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5: Azure AI Assistant (Full Width) -->
+      <div class="sr mt-8 p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group card-glow">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="w-14 h-14 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+            <span class="iconify text-red-500 text-2xl" data-icon="lucide:cloud-cog"></span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="tag">Azure</span>
+              <span class="tag">Applied RAG</span>
+              <span class="tag">GPT</span>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2">AI Shop Assistant — AIAT x Microsoft Hackathon</h3>
+            <p class="text-sm text-neutral-400 font-light leading-relaxed">
+              Built an AI assistant using Applied RAG techniques to answer shop-specific questions. Leveraged Microsoft Azure to connect GPT models with a custom knowledge base for automated support. Selected as one of the top-performing participants in the intensive AI bootcamp and final hackathon.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section id="experience" class="py-24 md:py-32 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 sr">
+        <span class="text-xs font-medium tracking-widest uppercase text-red-500 mb-4 block">Career Journey</span>
+        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Experience & Education</h2>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <!-- Timeline -->
+        <div class="relative pl-8">
+          <div class="timeline-line"></div>
+
+          <!-- Item 1: Internship -->
+          <div class="sr relative pb-12">
+            <div class="absolute left-[-25px] top-1.5 w-[15px] h-[15px] rounded-full bg-red-500/20 border-2 border-red-500 flex items-center justify-center">
+              <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 class="text-lg font-medium tracking-tight">Data Science Intern</h3>
+                  <p class="text-sm text-red-400 font-medium">IBOTNOI Company — Bangkok</p>
+                </div>
+                <span class="text-xs text-neutral-500 tracking-wide uppercase shrink-0">Jun — Jul 2025</span>
+              </div>
+              <ul class="space-y-3 text-sm text-neutral-400 font-light leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="iconify text-red-500/60 mt-1 shrink-0" data-icon="lucide:chevron-right"></span>
+                  Conducted EDA and data cleaning on ~120,000 customer feedback records for LLM processing
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="iconify text-red-500/60 mt-1 shrink-0" data-icon="lucide:chevron-right"></span>
+                  Engineered advanced prompts for OpenAI API — achieving ~95% accuracy in multi-class sentiment classification for financial domain
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="iconify text-red-500/60 mt-1 shrink-0" data-icon="lucide:chevron-right"></span>
+                  Designed interactive Power BI dashboards translating raw model outputs into actionable business insights
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Item 2: Education -->
+          <div class="sr relative pb-12">
+            <div class="absolute left-[-25px] top-1.5 w-[15px] h-[15px] rounded-full bg-red-500/20 border-2 border-red-500 flex items-center justify-center">
+              <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 class="text-lg font-medium tracking-tight">Bachelor of Engineering</h3>
+                  <p class="text-sm text-red-400 font-medium">Chulalongkorn University — Bangkok</p>
+                </div>
+                <span class="text-xs text-neutral-500 tracking-wide uppercase shrink-0">2022 — May 2026</span>
+              </div>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Major in Electrical Engineering. Focused on AI/ML, signal processing, pattern recognition, and embedded systems. Active in national AI competitions and hackathons.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3: Languages -->
+          <div class="sr relative">
+            <div class="absolute left-[-25px] top-1.5 w-[15px] h-[15px] rounded-full bg-neutral-700 border-2 border-neutral-600 flex items-center justify-center">
+              <div class="w-1.5 h-1.5 rounded-full bg-neutral-500"></div>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+              <h3 class="text-lg font-medium tracking-tight mb-4">Languages</h3>
+              <div class="flex flex-wrap gap-4">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/[0.03]">
+                  <span class="text-sm">🇹🇭</span>
+                  <span class="text-sm font-medium">Thai</span>
+                  <span class="text-xs text-neutral-500">(Native)</span>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/[0.03]">
+                  <span class="text-sm">🇬🇧</span>
+                  <span class="text-sm font-medium">English</span>
+                  <span class="text-xs text-neutral-500">(CEFR B1 — Intermediate)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ACHIEVEMENTS ==================== -->
+  <section id="achievements" class="py-24 md:py-32 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 sr">
+        <span class="text-xs font-medium tracking-widest uppercase text-red-500 mb-4 block">Recognition</span>
+        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Achievements & Certificates</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Achievement 1 -->
+        <div class="sr p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group card-glow">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+              <span class="iconify text-red-500 text-xl" data-icon="lucide:trophy"></span>
+            </div>
+            <div>
+              <h3 class="text-base font-medium tracking-tight mb-1">Super AI Engineer Season 6 — Level 2</h3>
+              <p class="text-xs text-red-400 font-medium mb-2">Mar 2026 — Present</p>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Selected as one of the top participants to advance to the intensive Level 2 specialized training in AI engineering.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 2 -->
+        <div class="sr p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group card-glow">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+              <span class="iconify text-red-500 text-xl" data-icon="lucide:award"></span>
+            </div>
+            <div>
+              <h3 class="text-base font-medium tracking-tight mb-1">AI Engineering Skills & Hackathon — AIAT x Microsoft</h3>
+              <p class="text-xs text-red-400 font-medium mb-2">Mar 2026 — Present</p>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Top-performing participant in the intensive AI bootcamp and final hackathon. Built Azure-powered RAG assistant.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 3 -->
+        <div class="sr p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group card-glow">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+              <span class="iconify text-red-500 text-xl" data-icon="lucide:rocket"></span>
+            </div>
+            <div>
+              <h3 class="text-base font-medium tracking-tight mb-1">Young Startup Entrepreneur 2026 — Top 15 Finalist</h3>
+              <p class="text-xs text-red-400 font-medium mb-2">Jan — Mar 2026</p>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Developed PromptFix business model and AI solution. Conducted feasibility studies, cost structures, and growth strategies.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 4 -->
+        <div class="sr p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 group card-glow">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0 group-hover:bg-red-500/20 transition-colors">
+              <span class="iconify text-red-500 text-xl" data-icon="lucide:badge-check"></span>
+            </div>
+            <div>
+              <h3 class="text-base font-medium tracking-tight mb-1">Super Engineering AI Assessment</h3>
+              <p class="text-xs text-neutral-500 font-medium mb-2">Theoretical Examination</p>
+              <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                Passed the Super Engineering AI theoretical examination, validating comprehensive AI engineering knowledge.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certificates Row -->
+      <div class="sr mt-8 p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+        <h3 class="text-sm font-medium tracking-wide uppercase text-neutral-500 mb-4">Certificates</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <span class="iconify text-red-500/60" data-icon="lucide:file-badge"></span>
+            <span class="text-sm text-neutral-300 font-light">Essential Pandas — Skooldio</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <span class="iconify text-red-500/60" data-icon="lucide:file-badge"></span>
+            <span class="text-sm text-neutral-300 font-light">Advanced SQL BigQuery — Skooldio</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <span class="iconify text-red-500/60" data-icon="lucide:file-badge"></span>
+            <span class="text-sm text-neutral-300 font-light">Data Storytelling — Skooldio</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            <span class="iconify text-red-500/60" data-icon="lucide:file-badge"></span>
+            <span class="text-sm text-neutral-300 font-light">AIhack Thailand 2024 — AIFUL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" class="py-24 md:py-32 border-t border-white/5 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-red-500/5 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <div class="sr">
+        <span class="text-xs font-medium tracking-widest uppercase text-red-500 mb-4 block">Let's Connect</span>
+        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-6">Ready to build something<br><span class="gradient-text">extraordinary?</span></h2>
+        <p class="text-neutral-400 font-light leading-relaxed max-w-xl mx-auto mb-10">
+          I'm actively seeking AI Engineer, AI Research, and Data Science roles. Whether you have an opportunity or just want to discuss AI — I'd love to hear from you.
+        </p>
+      </div>
+
+      <!-- Contact Cards -->
+      <div class="sr grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+        <a href="mailto:jiravat.chitowath@gmail.com" class="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 card-glow">
+          <span class="iconify text-red-500 text-2xl mb-3 mx-auto block" data-icon="lucide:mail"></span>
+          <div class="text-sm font-medium mb-1">Email</div>
+          <div class="text-xs text-neutral-500 break-all">jiravat.chitowath@gmail.com</div>
+        </a>
+        <a href="https://github.com/C-Jiravat" target="_blank" class="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 card-glow">
+          <span class="iconify text-red-500 text-2xl mb-3 mx-auto block" data-icon="lucide:github"></span>
+          <div class="text-sm font-medium mb-1">GitHub</div>
+          <div class="text-xs text-neutral-500">github.com/C-Jiravat</div>
+        </a>
+        <a href="tel:+6695176265" class="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/20 transition-all duration-300 card-glow">
+          <span class="iconify text-red-500 text-2xl mb-3 mx-auto block" data-icon="lucide:phone"></span>
+          <div class="text-sm font-medium mb-1">Phone</div>
+          <div class="text-xs text-neutral-500">+66 95 176 2665</div>
+        </a>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="sr">
+        <a href="mailto:jiravat.chitowath@gmail.com" class="inline-flex items-center gap-2 bg-white text-black text-xs font-semibold tracking-widest uppercase px-10 py-4 rounded-full hover:bg-neutral-200 transition-colors group">
+          Send Me an Email
+          <span class="iconify group-hover:translate-x-1 transition-transform" data-icon="lucide:arrow-right"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-white/5 py-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+          <span class="text-red-500 font-bold text-[10px]">J</span>
+        </div>
+        <span class="text-xs text-neutral-500">© 2025 Jiravat Chitowath. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/C-Jiravat" target="_blank" class="text-neutral-500 hover:text-white transition-colors">
+          <span class="iconify text-lg" data-icon="lucide:github"></span>
+        </a>
+        <a href="mailto:jiravat.chitowath@gmail.com" class="text-neutral-500 hover:text-white transition-colors">
+          <span class="iconify text-lg" data-icon="lucide:mail"></span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+    mobileToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      mobileToggle.querySelector('.iconify').setAttribute('data-icon', menuOpen ? 'lucide:x' : 'lucide:menu');
+    });
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.add('hidden');
+        mobileToggle.querySelector('.iconify').setAttribute('data-icon', 'lucide:menu');
+      });
+    });
+
+    // Navbar background on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(5,5,5,0.85)';
+        navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.borderBottom = 'none';
+      }
+    });
+
+    // Active nav link highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (window.scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Scroll-triggered reveal
+    const srElements = document.querySelectorAll('.sr');
+    const srObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger delay based on sibling index
+          const siblings = entry.target.parentElement.querySelectorAll('.sr');
+          let idx = Array.from(siblings).indexOf(entry.target);
+          entry.target.style.transitionDelay = `${idx * 0.08}s`;
+          entry.target.classList.add('visible');
+          srObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    srElements.forEach(el => srObserver.observe(el));
+  </script>
+</body>
+</html>
